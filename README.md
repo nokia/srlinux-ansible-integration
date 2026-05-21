@@ -7,8 +7,8 @@ Ansible Collection to manage Nokia SR Linux devices. Documentation is provided a
 Start with cloning the repo:
 
 ```bash
-git clone git@github.com:nokia/srlinux-ansible-collection.git
-cd srlinux-ansible-collection
+git clone git@github.com:nokia/srlinux-ansible-integration.git
+cd srlinux-ansible-integration
 ```
 
 Deploy the lab to support the tests:

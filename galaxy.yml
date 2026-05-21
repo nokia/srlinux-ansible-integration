@@ -51,10 +51,10 @@ dependencies:
   "ansible.utils": ">=3.0.0"
 
 # The URL of the originating SCM repository
-repository: https://github.com/nokia/srlinux-ansible-collection
+repository: https://github.com/nokia/srlinux-ansible-integration
 
 # The URL to the collection issue tracker
-issues: https://github.com/nokia/srlinux-ansible-collection/issues
+issues: https://github.com/nokia/srlinux-ansible-integration/issues
 
 # The URL to any online docs
 documentation: https://learn.srlinux.dev/ansible/collection/

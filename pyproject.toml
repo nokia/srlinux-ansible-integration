@@ -1,5 +1,5 @@
 [project]
-name = "srlinux-ansible-collection"
+name = "srlinux-ansible-integration"
 version = "1.1.0"
 description = "SR Linux Ansible Collection"
 readme = "README.md"
