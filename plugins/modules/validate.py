@@ -138,19 +138,19 @@ def main():
     client = JSONRPCClient(module)
 
     updates = module.params.get("update") or []
-    deletes = module.params.get("deletes") or []
+    deletes = module.params.get("delete") or []
     replaces = module.params.get("replace") or []
     yang_models = module.params.get("yang_models")
 
     commands = []
-    for obj in updates:
-        obj["action"] = "update"
+    for obj in deletes:
+        obj["action"] = "delete"
         commands += [obj]
     for obj in replaces:
         obj["action"] = "replace"
         commands += [obj]
-    for obj in deletes:
-        obj["action"] = "delete"
+    for obj in updates:
+        obj["action"] = "update"
         commands += [obj]
 
     data = {
