@@ -33,3 +33,7 @@
 
 * Removed ansible-core 2.15 support, added support for ansible-core 2.18 and 2.19.
 * Removed upper-bound restrictions on `ansible.utils` and `ansible.netcommon` versions.
+
+## v1.1.1
+
+* Fixed validate module to support delete operation.

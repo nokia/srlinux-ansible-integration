@@ -1,13 +1,10 @@
 [project]
 name = "srlinux-ansible-collection"
-version = "1.1.0"
+version = "1.1.1"
 description = "SR Linux Ansible Collection"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = [
-    "ansible-core==2.16.12",
- "pyyaml",
-]
+dependencies = ["ansible-core==2.16.12", "pyyaml"]
 
 [dependency-groups]
 dev = ["rich>=13.9.4", "ruff>=0.9.4"]
