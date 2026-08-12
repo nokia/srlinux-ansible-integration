@@ -88,16 +88,21 @@ jobs:
         if: ${{ inputs.start-tmate-after-test }}
 
   ansible-sanity-test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
+    needs:
+      - prepare-matrix
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.prepare-matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v7
         with:
-          python-version: 3.11
+          python-version: ${{ matrix.python-version }}
 
       - name: Install ansible core
-        run: pip install ansible-core==2.16.12
+        run: pip install ansible-core==${{ matrix.ansible-core-version }}
 
       - name: Ansible sanity test
         run: ./run.sh sanity-test
