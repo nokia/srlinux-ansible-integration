@@ -1,17 +1,11 @@
 plugins/httpapi/srlinux.py validate-modules:missing-gplv3-license
 plugins/httpapi/srlinux.py validate-modules:import-before-documentation
-plugins/modules/cli.py import-3.8!skip
 plugins/modules/cli.py validate-modules:missing-gplv3-license
 plugins/modules/cli.py validate-modules:import-before-documentation
-plugins/modules/get.py import-3.8!skip
 plugins/modules/get.py validate-modules:missing-gplv3-license
 plugins/modules/get.py validate-modules:import-before-documentation
-plugins/modules/config.py import-3.8!skip
 plugins/modules/config.py validate-modules:missing-gplv3-license
 plugins/modules/config.py validate-modules:import-before-documentation
-plugins/modules/validate.py import-3.8!skip
 plugins/modules/validate.py validate-modules:missing-gplv3-license
 plugins/modules/validate.py validate-modules:import-before-documentation
-plugins/module_utils/srlinux.py import-3.8!skip
-plugins/module_utils/const.py import-3.8!skip
 tests/playbooks/golden/clab-ansible-srl.cfg.yml yamllint!skip

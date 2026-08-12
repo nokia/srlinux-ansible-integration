@@ -21,6 +21,11 @@ CLAB_VERSION="0.66.0"
 
 CHECKPOINT_NAME="clab-initial"
 
+# ansible-galaxy retry settings
+GALAXY_INSTALL_ATTEMPTS="${GALAXY_INSTALL_ATTEMPTS:-3}"
+GALAXY_INSTALL_TIMEOUT="${GALAXY_INSTALL_TIMEOUT:-120}"
+GALAXY_INSTALL_RETRY_DELAY="${GALAXY_INSTALL_RETRY_DELAY:-10}"
+
 # -----------------------------------------------------------------------------
 # Helper functions start with _ and aren't listed in this script's help menu.
 # -----------------------------------------------------------------------------
@@ -35,6 +40,29 @@ function _cdTests() {
 # transforms ansible core version by swapping : with /
 function _transformAnsibleCoreVersion() {
   echo "${1}" | sed 's/:/\//g'
+}
+
+# Install a collection with retries for transient Galaxy failures.
+function _install-collection {
+  local attempt
+  local delay="${GALAXY_INSTALL_RETRY_DELAY}"
+
+  for ((attempt = 1; attempt <= GALAXY_INSTALL_ATTEMPTS; attempt++)); do
+    if ansible-galaxy collection install \
+      --timeout "${GALAXY_INSTALL_TIMEOUT}" \
+      "$@"; then
+      return 0
+    fi
+
+    if [ "${attempt}" -lt "${GALAXY_INSTALL_ATTEMPTS}" ]; then
+      echo "ansible-galaxy install failed (attempt ${attempt}/${GALAXY_INSTALL_ATTEMPTS}); retrying in ${delay}s..." >&2
+      sleep "${delay}"
+      delay=$((delay * 2))
+    fi
+  done
+
+  echo "ansible-galaxy install failed after ${GALAXY_INSTALL_ATTEMPTS} attempts." >&2
+  return 1
 }
 
 # -----------------------------------------------------------------------------
@@ -55,7 +83,7 @@ function install-containerlab {
 
 # Install a local collection.
 function install-local-collection {
-  ansible-galaxy collection install --force ..
+  _install-collection --force ..
 }
 
 function remove-local-collection {
@@ -78,7 +106,7 @@ with open("galaxy.yml") as f:
     for name, version in deps.items():
         print(f"'{name}:{version}'")
 ' | while read dep; do
-    ansible-galaxy collection install $dep
+    _install-collection "$dep"
   done
 }
 
@@ -358,7 +386,7 @@ function ci-test {
 function copy-sanity-ignore {
   _cdTests
   cd sanity
-  for version in 2.17 2.18 2.19; do
+  for version in 2.17 2.18 2.19 2.20 2.21; do
     cp ignore-2.16.txt ignore-${version}.txt
   done
 }

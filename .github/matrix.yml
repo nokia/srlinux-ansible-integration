@@ -3,47 +3,90 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 # a matrix list of variables used in testing
-# kind of a manual way of creating a testing matrix with a flexibility of selecting permutations
-# support matrix for ansible control node - https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#node-requirement-summary
+# Each ansible-core version is paired with its supported control-node Python range.
+# https://docs.ansible.com/projects/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-support-matrix
 
 include:
   ####################
-  # Python 3.10
+  # ansible-core 2.16
   ####################
   - &latest-2_16
     ansible-core-version: "2.16.8"
     runs-on: "ubuntu-22.04"
     python-version: "3.10"
 
+  - <<: *latest-2_16
+    python-version: "3.11"
+
+  - <<: *latest-2_16
+    python-version: "3.12"
+
+  ####################
+  # ansible-core 2.17
+  ####################
   - &latest-2_17
     ansible-core-version: "2.17.1"
     runs-on: "ubuntu-22.04"
     python-version: "3.10"
 
-  ####################
-  # Python 3.11
-  ####################
-  - <<: *latest-2_16
-    python-version: "3.11"
-
   - <<: *latest-2_17
     python-version: "3.11"
-
-  ####################
-  # Python 3.12
-  ####################
-  - <<: *latest-2_16
-    python-version: "3.12"
 
   - <<: *latest-2_17
     python-version: "3.12"
 
+  ####################
+  # ansible-core 2.18
+  ####################
   - &latest-2_18
     ansible-core-version: "2.18.12"
     runs-on: "ubuntu-24.04"
+    python-version: "3.11"
+
+  - <<: *latest-2_18
     python-version: "3.12"
 
+  - <<: *latest-2_18
+    python-version: "3.13"
+
+  ####################
+  # ansible-core 2.19
+  ####################
   - &latest-2_19
     ansible-core-version: "2.19.5"
     runs-on: "ubuntu-24.04"
+    python-version: "3.11"
+
+  - <<: *latest-2_19
+    python-version: "3.12"
+
+  - <<: *latest-2_19
     python-version: "3.13"
+
+  ####################
+  # ansible-core 2.20
+  ####################
+  - &latest-2_20
+    ansible-core-version: "2.20.8"
+    runs-on: "ubuntu-24.04"
+    python-version: "3.12"
+
+  - <<: *latest-2_20
+    python-version: "3.13"
+
+  - <<: *latest-2_20
+    python-version: "3.14"
+
+  ####################
+  # ansible-core 2.21
+  ####################
+  - &latest-2_21
+    ansible-core-version: "2.21.3"
+    runs-on: "ubuntu-24.04"
+    python-version: "3.12"
+
+  - <<: *latest-2_21
+    python-version: "3.13"
+
+  - <<: *latest-2_21
+    python-version: "3.14"
